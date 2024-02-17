@@ -1,0 +1,9 @@
+{
+  "name": "gluco-noter",
+  "version": "1.0.0",
+  "description": "A fullstack app for noting the blood glucose level of a user",
+  "main": "server.js",
+  "repository": "https://github.com/rakshian24/gluco-noter.git",
+  "author": "Rakshith Sindhiya R",
+  "license": "MIT"
+}
