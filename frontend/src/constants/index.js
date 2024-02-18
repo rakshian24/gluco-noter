@@ -12,6 +12,7 @@ export const ROUTES = {
   LOGOUT: "/logout",
   DASHBOARD: "/dashboard",
   PROFILE: "/profile",
+  CREATE_READING: "/create-reading",
 };
 
 export const colors = {

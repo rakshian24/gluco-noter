@@ -11,11 +11,12 @@ import { getSvgWidth } from "./utils";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login/Login";
+import CreatingReading from "./pages/createReading/CreatingReading";
 
 const App = () => {
   const [screenWidth] = useWindowSize();
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
-  const { REGISTER, LOGIN, DASHBOARD } = ROUTES;
+  const { REGISTER, LOGIN, DASHBOARD, CREATE_READING } = ROUTES;
   return (
     <Stack sx={{ height: "100vh", minHeight: "100vh", margin: 0 }}>
       {!isTablet && <Header />}
@@ -36,6 +37,7 @@ const App = () => {
             {/* Protected routes */}
             <Route path="" element={<ProtectedRoute />}>
               <Route element={<Dashboard />} path={DASHBOARD} />
+              <Route element={<CreatingReading />} path={CREATE_READING} />
             </Route>
 
             <Route
