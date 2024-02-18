@@ -43,6 +43,16 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.set("toObject", { virtuals: true });
+userSchema.set("toJSON", { virtuals: true });
+
+userSchema.virtual("user", {
+  ref: "GlucoseReading",
+  localField: "_id",
+  foreignField: "user",
+  justOne: false,
+});
+
 // Encrypt password using bcrypt before saving it to DB
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {

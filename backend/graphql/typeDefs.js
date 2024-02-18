@@ -68,10 +68,16 @@ export const typeDefs = `
     description: String
     consumedFoods: ID!
   }
+
+  type GlucoseReadingsGroupedByDate {
+    _id: String
+    results: [GlucoseReading]
+  }
   
   type Query {
     me: User
     getAllFoods: [Food]
+    getAllReadingsGroupedByDate: [GlucoseReadingsGroupedByDate]
   }
   
   type Mutation {

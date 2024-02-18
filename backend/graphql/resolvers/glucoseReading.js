@@ -61,18 +61,62 @@ export default {
     },
   },
   Query: {
-    async me(_, args, ctx) {
+    async getAllReadingsGroupedByDate(_, args, ctx) {
       const loggedInUserId = getLoggedInUserId(ctx);
       const userId = loggedInUserId?.userId;
 
+      if (!userId) {
+        throw new ApolloError(
+          "Cannot create reading for this user as this user does not exist!"
+        );
+      }
+
       const user = await User.findById(userId);
 
-      const result = {
-        ...user._doc,
-        id: user._id,
-      };
+      const readings = await GlucoseReading.aggregate([
+        {
+          $match: {
+            user: user._doc._id,
+          },
+        },
+        {
+          $lookup: {
+            from: "foods",
+            localField: "consumedFoods",
+            foreignField: "_id",
+            as: "consumedFoods",
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "user",
+            foreignField: "_id",
+            as: "user",
+          },
+        },
+        {
+          $unwind: "$user",
+        },
+        {
+          $group: {
+            _id: {
+              $dateToString: {
+                format: "%d-%m-%Y",
+                date: "$createdAt",
+              },
+            },
+            results: {
+              $push: "$$ROOT",
+            },
+          },
+        },
+        {
+          $sort: { _id: -1 },
+        },
+      ]);
 
-      return result;
+      return readings;
     },
   },
 };
