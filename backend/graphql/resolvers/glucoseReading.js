@@ -3,6 +3,7 @@ import User from "../../models/User.js";
 import getLoggedInUserId from "../../middleware/getLoggedInUserId.js";
 import GlucoseReading from "../../models/glucoseReadingModel.js";
 import Food from "../../models/Food.js";
+import moment from "moment";
 
 export default {
   Mutation: {
@@ -65,7 +66,7 @@ export default {
 
       if (!userId) {
         throw new ApolloError(
-          "Cannot create reading for this user as this user does not exist!"
+          "Cannot get the reading for this user as this user does not exist!"
         );
       }
 
@@ -113,6 +114,34 @@ export default {
           $sort: { _id: -1 },
         },
       ]);
+
+      return readings;
+    },
+
+    async getAllReadingForDate(_, { date }, ctx) {
+      const loggedInUserId = getLoggedInUserId(ctx);
+      const userId = loggedInUserId?.userId;
+
+      if (!userId) {
+        throw new ApolloError(
+          "Cannot get the reading for this user as this user does not exist!"
+        );
+      }
+
+      const startDate = moment(date, "DD-MM-YYYY").startOf("day").toDate();
+      const endDate = moment(date, "DD-MM-YYYY").endOf("day").toDate();
+
+      const user = await User.findById(userId);
+
+      const readings = await GlucoseReading.find({
+        user: user._doc._id,
+        createdAt: {
+          $gte: startDate,
+          $lt: endDate,
+        },
+      })
+        .populate("consumedFoods")
+        .populate("user");
 
       return readings;
     },
