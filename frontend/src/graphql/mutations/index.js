@@ -5,16 +5,9 @@ export const REGISTER_USER_MUTATION = gql`
     registerUser(registerInput: $registerInput) {
       token
       user {
-        id
-        username
+        _id
         email
-        todos {
-          id
-          title
-          description
-          isCompleted
-          ownerId
-        }
+        username
       }
     }
   }
@@ -25,16 +18,9 @@ export const LOGIN_MUTATION = gql`
     loginUser(loginInput: $loginInput) {
       token
       user {
-        id
-        username
+        _id
         email
-        todos {
-          id
-          title
-          description
-          isCompleted
-          ownerId
-        }
+        username
       }
     }
   }

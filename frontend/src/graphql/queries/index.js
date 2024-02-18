@@ -3,16 +3,9 @@ import gql from "graphql-tag";
 export const GET_ME = gql`
   query {
     me {
-      id
+      _id
       username
       email
-      todos {
-        id
-        title
-        description
-        isCompleted
-        ownerId
-      }
     }
   }
 `;
