@@ -43,7 +43,6 @@ export default {
       const res = await newReading.save();
 
       const user = await User.findById(userId);
-      const userRes = { id: user.id, ...user._doc };
 
       const foods = await Food.find({
         _id: {
@@ -52,9 +51,8 @@ export default {
       });
 
       const response = {
-        id: res._id,
         ...res._doc,
-        ...{ user: userRes },
+        ...{ user },
         ...{ consumedFoods: foods },
       };
       return response;
