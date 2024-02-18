@@ -78,6 +78,7 @@ export const typeDefs = `
     me: User
     getAllFoods: [Food]
     getAllReadingsGroupedByDate: [GlucoseReadingsGroupedByDate]
+    getAllReadingForDate(date: String!): [GlucoseReading]
   }
   
   type Mutation {
