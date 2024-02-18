@@ -49,7 +49,7 @@ function AuthProvider(props) {
     dispatch({
       type: "LOGIN",
       payload: {
-        userId: userData.user.id,
+        userId: userData.user._id,
       },
     });
   };
