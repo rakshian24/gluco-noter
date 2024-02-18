@@ -26,8 +26,8 @@ export default {
       });
 
       const res = await newUser.save();
-
-      const response = { user: { id: res.id, ...res._doc }, token };
+      
+      const response = { user: { ...res._doc }, token };
 
       return response;
     },
@@ -40,7 +40,7 @@ export default {
           expiresIn: "1d",
         });
 
-        const response = { user: { id: user.id, ...user._doc }, token };
+        const response = { user: { ...user._doc }, token };
 
         return response;
       } else {
@@ -58,12 +58,7 @@ export default {
 
       const user = await User.findById(userId);
 
-      const result = {
-        ...user._doc,
-        id: user._id,
-      };
-
-      return result;
+      return user;
     },
   },
 };

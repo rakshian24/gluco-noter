@@ -3,7 +3,7 @@ export const typeDefs = `
   scalar DateTime
 
   type User {
-    id: ID
+    _id: ID
     username: String
     email: String
   }
@@ -23,7 +23,7 @@ export const typeDefs = `
   }
 
   type Food {
-    id: ID
+    _id: ID
     value: String
     label: String
     createdAt: DateTime
@@ -31,7 +31,7 @@ export const typeDefs = `
   }
 
   type GlucoseReading {
-    id: ID
+    _id: ID
     type: GlucoseReadingType!
     user: User!
     reading: Int!

@@ -18,8 +18,7 @@ export default {
       });
 
       const res = await newFood.save();
-      const response = { id: res.id, ...res._doc };
-      return response;
+      return res;
     },
   },
   Query: {
