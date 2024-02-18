@@ -28,7 +28,7 @@ const Header = () => {
     >
       <Link to={"/"}>
         <Typography fontSize={20} fontWeight={600}>
-          Todo App
+          Gluco Noter
         </Typography>
       </Link>
       {user?.userId && <Button onClick={onLogOut}>Logout</Button>}

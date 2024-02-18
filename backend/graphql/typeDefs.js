@@ -1,9 +1,11 @@
 export const typeDefs = `
+
+  scalar DateTime
+
   type User {
     id: ID
     username: String
     email: String
-    todos: [Todo]
   }
 
   type AuthResponse {
@@ -11,12 +13,34 @@ export const typeDefs = `
     token: String
   }
 
-  type Todo {
+  enum GlucoseReadingType {
+    BB
+    AB
+    BL
+    AL
+    BD
+    AD
+  }
+
+  type Food {
     id: ID
-    title: String
+    value: String
+    label: String
+    createdAt: DateTime
+    updatedAt: DateTime
+  }
+
+  type GlucoseReading {
+    id: ID
+    type: GlucoseReadingType!
+    user: User!
+    reading: Int!
+    isMedsTaken: Boolean!
+    isExercised: Boolean!
+    consumedFoods: [Food]!
     description: String
-    isCompleted: Boolean
-    ownerId: ID
+    createdAt: DateTime
+    updatedAt: DateTime
   }
   
   input RegisterInput {
@@ -31,24 +55,30 @@ export const typeDefs = `
     password: String!
   }
 
-  input TodoInput {
-    title: String!
-    description: String!
-    isCompleted: Boolean!
+  input FoodInput {
+    value: String!
+    label: String!
+  }
+
+  input GlucoseReadingInput {
+    type: GlucoseReadingType!
+    reading: Int!
+    isMedsTaken: Boolean!
+    isExercised: Boolean!
+    description: String
+    consumedFoods: ID!
   }
   
   type Query {
     me: User
-    
-    todos: [Todo]
-    todo(id: ID!): Todo
+    getAllFoods: [Food]
   }
   
   type Mutation {
     registerUser(registerInput: RegisterInput): AuthResponse
     loginUser(loginInput: LoginInput): AuthResponse
-    logOut: String
 
-    createTodo(todoInput: TodoInput): Todo
+    createFood(foodInput: FoodInput): Food
+    createGlucoseReading(glucoseReadingInput: GlucoseReadingInput): GlucoseReading
   }
 `;
