@@ -1,8 +1,6 @@
 import { ApolloError } from "apollo-server-errors";
 import jwt from "jsonwebtoken";
 import User from "../../models/User.js";
-import { AUTH_COOKIE_NAME } from "../../constants/index.js";
-import Todo from "../../models/Todo.js";
 import getLoggedInUserId from "../../middleware/getLoggedInUserId.js";
 
 export default {
@@ -52,13 +50,6 @@ export default {
         );
       }
     },
-
-    async logOut(_, args, ctx) {
-      await ctx.request.cookieStore?.delete({
-        name: AUTH_COOKIE_NAME,
-      });
-      return "Logged out successfully!";
-    },
   },
   Query: {
     async me(_, args, ctx) {
@@ -66,12 +57,10 @@ export default {
       const userId = loggedInUserId?.userId;
 
       const user = await User.findById(userId);
-      const todosOfAUser = await Todo.find({ ownerId: userId });
 
       const result = {
         ...user._doc,
         id: user._id,
-        todos: [...todosOfAUser],
       };
 
       return result;

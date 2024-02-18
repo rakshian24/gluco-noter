@@ -1,13 +1,16 @@
 import userResolvers from "./users.js";
-import todoResolvers from "./todo.js";
+import glucoseReadingResolvers from "./glucoseReading.js";
+import foodResolvers from "./food.js";
 
 export default {
   Query: {
     ...userResolvers.Query,
-    ...todoResolvers.Query,
+    ...glucoseReadingResolvers.Query,
+    ...foodResolvers.Query,
   },
   Mutation: {
     ...userResolvers.Mutation,
-    ...todoResolvers.Mutation,
+    ...glucoseReadingResolvers.Mutation,
+    ...foodResolvers.Mutation,
   },
 };

@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 
-const userSchema = mongoose.Schema(
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema(
   {
     username: {
       type: String,
@@ -40,6 +42,16 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.set("toObject", { virtuals: true });
+userSchema.set("toJSON", { virtuals: true });
+
+userSchema.virtual("user", {
+  ref: "GlucoseReading",
+  localField: "_id",
+  foreignField: "user",
+  justOne: false,
+});
 
 // Encrypt password using bcrypt before saving it to DB
 userSchema.pre("save", async function (next) {
