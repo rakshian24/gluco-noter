@@ -31,7 +31,19 @@ const Header = () => {
           Gluco Noter
         </Typography>
       </Link>
-      {user?.userId && <Button onClick={onLogOut}>Logout</Button>}
+      {user?.userId && (
+        <Stack direction={"row"} gap={2}>
+          <Button
+            variant="contained"
+            onClick={() => navigate(ROUTES.CREATE_READING)}
+          >
+            Add Reading
+          </Button>
+          <Button variant="outlined" onClick={onLogOut}>
+            Logout
+          </Button>
+        </Stack>
+      )}
     </Stack>
   );
 };
