@@ -80,7 +80,10 @@ const App = () => {
                 element={<Dashboard userInfo={data?.me} />}
                 path={DASHBOARD}
               />
-              <Route element={<CreatingReading />} path={CREATE_READING} />
+              <Route
+                element={<CreatingReading userInfo={data?.me} />}
+                path={CREATE_READING}
+              />
             </Route>
 
             <Route

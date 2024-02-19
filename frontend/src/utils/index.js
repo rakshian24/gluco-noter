@@ -32,6 +32,15 @@ export const mealTypeKeyVsMealTypeDescrMap = {
   AD: "dinner",
 };
 
+export const readingTypeKeyVsDescMap = {
+  BB: "before breakfast",
+  AB: "after breakfast",
+  BL: "before lunch",
+  AL: "after lunch",
+  BD: "before dinner",
+  AD: "after dinner",
+};
+
 export const isRunningStandalone = () => {
   return window.matchMedia("(display-mode: standalone)").matches;
 };
@@ -57,4 +66,14 @@ export const getInitials = (str) => {
     .join("");
 
   return initials || "RS";
+};
+
+export const joinStringsAndConjunctionateLastWord = (stringArray) => {
+  if (!stringArray) {
+    return "";
+  }
+  if (stringArray.length === 1) {
+    return stringArray[0];
+  }
+  return stringArray.slice(0, -1).join(",") + " and " + stringArray.slice(-1);
 };
