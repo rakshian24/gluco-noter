@@ -42,7 +42,7 @@ const App = () => {
         sx={{
           height: isTablet
             ? isWebAppRunningOnIphone
-              ? "calc(100vh - 140px)"
+              ? "calc(100vh - 170px)"
               : "calc(100vh - 115px)"
             : "calc(100vh - 72px)",
           overflowY: "auto",
