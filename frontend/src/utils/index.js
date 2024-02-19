@@ -31,3 +31,28 @@ export const mealTypeKeyVsMealTypeDescrMap = {
   AL: "lunch",
   AD: "dinner",
 };
+
+export const isRunningStandalone = () => {
+  return window.matchMedia("(display-mode: standalone)").matches;
+};
+
+export const isAppRunningOnIos16 = () => {
+  return window.navigator.userAgent.match("iPhone OS 16")?.length > 0;
+};
+
+export const isStandAloneAndRunningOnIos16 = () =>
+  isRunningStandalone() && isAppRunningOnIos16();
+
+export const getInitials = (str) => {
+  if (!str) return "RS";
+
+  const initials = str
+    .split(" ")
+    .map(
+      (name, index, arr) => (index === 0 || index === arr.length - 1) && name[0]
+    )
+    .filter((initial) => initial)
+    .join("");
+
+  return initials || "RS";
+};

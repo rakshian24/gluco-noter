@@ -78,7 +78,7 @@ const CustomSelect = React.forwardRef(function CustomSelect(
       </Select>
       <Typography
         sx={{
-          px: 2,
+          px: 1,
           color: error ? colors.red : colors.contentSecondary,
           fontSize: "12px",
         }}

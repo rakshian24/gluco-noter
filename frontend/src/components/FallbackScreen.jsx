@@ -23,11 +23,13 @@ const FallBackScreen = ({
         )}
         {showCta && ctaLink && (
           <Link to={ctaLink}>
-            <Button style={{ marginTop: "2.5rem" }}>{ctaText}</Button>
+            <Button sx={{ mt: 3 }}>{ctaText}</Button>
           </Link>
         )}
       </Stack>
-      {svgComponent}
+      <Stack justifyContent={"center"} alignItems={"center"}>
+        {svgComponent}
+      </Stack>
     </Stack>
   );
 };

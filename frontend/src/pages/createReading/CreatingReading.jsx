@@ -1,4 +1,5 @@
 import {
+  Backdrop,
   Button,
   Checkbox,
   FormControlLabel,
@@ -17,12 +18,13 @@ import MultiSelectBox from "../../components/MultiSelectBox";
 import { useMutation } from "@apollo/client";
 import { CREATE_FOOD_MUTATION, CREATE_READING } from "../../graphql/mutations";
 import { showConsumedFoodsTagBox, textInputRegex } from "../../utils";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const CreatingReading = () => {
   const [selectedMultiValue, setSelectedMultiValue] = useState([]);
   const [, setMultiSelectInputVal] = useState("");
 
-  const [createFood] = useMutation(CREATE_FOOD_MUTATION);
+  const [createFood, { loading }] = useMutation(CREATE_FOOD_MUTATION);
   const [createReading] = useMutation(CREATE_READING);
 
   const { control, formState, handleSubmit, watch } = useForm({
@@ -35,6 +37,7 @@ const CreatingReading = () => {
   const { errors } = formState;
   const COMMON_PROPS = { control: control, errors: errors };
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
+  const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
 
   const handleOnMultiSelectInputChange = (value) => {
     setMultiSelectInputVal(value);
@@ -69,10 +72,16 @@ const CreatingReading = () => {
       <Typography fontSize={20} fontWeight={500}>
         Create glucose reading
       </Typography>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <LoadingSpinner />
+      </Backdrop>
       <Stack>
         <form noValidate onSubmit={handleSubmit(onSubmitHandler)}>
           <Stack gap={2}>
-            <Stack gap={2} direction={isTablet ? "column" : "row"}>
+            <Stack gap={2} direction={isMobile ? "column" : "row"}>
               <Controller
                 name="type"
                 {...COMMON_PROPS}
@@ -118,10 +127,13 @@ const CreatingReading = () => {
                 )}
               />
             </Stack>
-            <Stack gap={2} direction={isTablet ? "column" : "row"}>
+            <Stack
+              gap={isTablet ? 1 : 2}
+              direction={isTablet ? "column" : "row"}
+            >
               <FormControlLabel
                 label="Did you take your pills?"
-                sx={{ width: "50%" }}
+                sx={{ width: isTablet ? "100%" : "50%" }}
                 control={
                   <Controller
                     name="isMedsTaken"
@@ -139,7 +151,7 @@ const CreatingReading = () => {
 
               <FormControlLabel
                 label="Did you exercise today?"
-                sx={{ width: "50%" }}
+                sx={{ width: isTablet ? "100%" : "50%" }}
                 control={
                   <Controller
                     name="isExercised"
@@ -203,7 +215,7 @@ const CreatingReading = () => {
               />
             </Stack>
           </Stack>
-          <Stack mt={2} flexDirection={"row"} justifyContent={"flex-end"}>
+          <Stack mt={1} flexDirection={"row"} justifyContent={"flex-end"}>
             <Button
               onClick={() => onSubmitHandler}
               variant="contained"
