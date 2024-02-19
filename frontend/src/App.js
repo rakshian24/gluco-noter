@@ -7,7 +7,7 @@ import Register from "./components/Register/Register";
 import FallBackScreen from "./components/FallbackScreen";
 import PageNotFoundAnimated from "./components/PageNotFoundAnimated";
 import { useWindowSize } from "./hooks/useWindowResize";
-import { getSvgWidth } from "./utils";
+import { getSvgWidth, isWebAppRunningOnIphone } from "./utils";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login/Login";
@@ -16,9 +16,12 @@ import Footer from "./components/Footer/Footer";
 import { GET_ME } from "./graphql/queries";
 import { useQuery } from "@apollo/client";
 import LoadingSpinner from "./components/LoadingSpinner";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
 
 const App = () => {
   const { data, loading, error } = useQuery(GET_ME);
+  const { user } = useContext(AuthContext);
   const [screenWidth] = useWindowSize();
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
   const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
@@ -37,7 +40,11 @@ const App = () => {
       {!isTablet && <Header />}
       <Stack
         sx={{
-          height: isTablet ? "calc(100vh - 115px)" : "calc(100vh - 72px)",
+          height: isTablet
+            ? isWebAppRunningOnIphone
+              ? "calc(100vh - 140px)"
+              : "calc(100vh - 115px)"
+            : "calc(100vh - 72px)",
           overflowY: "auto",
         }}
       >
@@ -79,7 +86,7 @@ const App = () => {
           </Routes>
         </Stack>
       </Stack>
-      {isTablet && <Footer userInfo={data?.me} />}
+      {isTablet && user?.userId && <Footer userInfo={data?.me} />}
     </Stack>
   );
 };
