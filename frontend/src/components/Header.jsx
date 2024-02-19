@@ -29,7 +29,7 @@ const Header = () => {
     >
       <Link to={"/"}>
         <Typography fontSize={20} fontWeight={600}>
-          Gluco Noter
+          Gluco Noter App
         </Typography>
       </Link>
       {user?.userId && (
