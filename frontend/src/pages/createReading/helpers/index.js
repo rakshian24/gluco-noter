@@ -1,9 +1,9 @@
 export const InitialCreateReadingFormValues = {
   type: "",
   reading: "",
-  isMedsTaken: "",
-  isExercised: "",
-  consumedFoods: "",
+  isMedsTaken: false,
+  isExercised: false,
+  consumedFoods: [],
   description: "",
 };
 

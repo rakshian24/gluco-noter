@@ -9,3 +9,15 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const GET_ALL_FOODS = gql`
+  query {
+    getAllFoods {
+      _id
+      label
+      value
+      createdAt
+      updatedAt
+    }
+  }
+`;

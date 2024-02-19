@@ -86,6 +86,11 @@ export const typeDefs = `
     loginUser(loginInput: LoginInput): AuthResponse
 
     createFood(foodInput: FoodInput): Food
-    createGlucoseReading(glucoseReadingInput: GlucoseReadingInput): GlucoseReading
+    createGlucoseReading(type: GlucoseReadingType!
+      reading: Int!
+      isMedsTaken: Boolean!
+      isExercised: Boolean!
+      description: String
+      consumedFoods: ID!): GlucoseReading
   }
 `;
