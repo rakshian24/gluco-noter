@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { ROUTES } from "../constants";
 import client from "../apolloClient";
@@ -8,6 +8,7 @@ import client from "../apolloClient";
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const onLogOut = () => {
     logOut();
@@ -33,12 +34,14 @@ const Header = () => {
       </Link>
       {user?.userId && (
         <Stack direction={"row"} gap={2}>
-          <Button
-            variant="contained"
-            onClick={() => navigate(ROUTES.CREATE_READING)}
-          >
-            Add Reading
-          </Button>
+          {pathname !== ROUTES.CREATE_READING && (
+            <Button
+              variant="contained"
+              onClick={() => navigate(ROUTES.CREATE_READING)}
+            >
+              Add Reading
+            </Button>
+          )}
           <Button variant="outlined" onClick={onLogOut}>
             Logout
           </Button>

@@ -21,3 +21,13 @@ export const emailRegex =
 
 export const isValueValid = (value) =>
   value !== null && value !== undefined && value !== "" && value !== 0;
+
+export const showConsumedFoodsTagBox = (selectedValue) => {
+  return ["AB", "AL", "AD"].includes(selectedValue);
+};
+
+export const mealTypeKeyVsMealTypeDescrMap = {
+  AB: "breakfast",
+  AL: "lunch",
+  AD: "dinner",
+};

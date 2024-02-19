@@ -7,20 +7,15 @@ import moment from "moment";
 
 export default {
   Mutation: {
-    async createGlucoseReading(
-      _,
-      {
-        glucoseReadingInput: {
-          type,
-          reading,
-          description,
-          isMedsTaken,
-          isExercised,
-          consumedFoods,
-        },
-      },
-      ctx
-    ) {
+    async createGlucoseReading(_, args, ctx) {
+      const {
+        type,
+        reading,
+        description,
+        isMedsTaken,
+        isExercised,
+        consumedFoods,
+      } = args;
       const parsedConsumedFoodIds = JSON.parse(consumedFoods);
       const loggedInUserId = getLoggedInUserId(ctx);
       const userId = loggedInUserId?.userId;
