@@ -12,20 +12,40 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login/Login";
 import CreatingReading from "./pages/createReading/CreatingReading";
+import Footer from "./components/Footer/Footer";
+import { GET_ME } from "./graphql/queries";
+import { useQuery } from "@apollo/client";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const App = () => {
+  const { data, loading, error } = useQuery(GET_ME);
   const [screenWidth] = useWindowSize();
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
+  const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
+
   const { REGISTER, LOGIN, DASHBOARD, CREATE_READING } = ROUTES;
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    console.log("ERROR = ", error);
+  }
+
   return (
     <Stack sx={{ height: "100vh", minHeight: "100vh", margin: 0 }}>
       {!isTablet && <Header />}
-      <Stack sx={{ height: "calc(100vh - 72px)", overflowY: "auto" }}>
+      <Stack
+        sx={{
+          height: isTablet ? "100%" : "calc(100vh - 72px)",
+          overflowY: "auto",
+        }}
+      >
         <Stack
           sx={{
             maxWidth: "1300px",
-            margin: "0 auto",
-            padding: isTablet ? 2 : 3,
+            margin: isTablet ? "0" : "0 auto",
+            padding: isMobile ? 2 : 3,
           }}
         >
           <Routes>
@@ -36,7 +56,10 @@ const App = () => {
 
             {/* Protected routes */}
             <Route path="" element={<ProtectedRoute />}>
-              <Route element={<Dashboard />} path={DASHBOARD} />
+              <Route
+                element={<Dashboard userInfo={data?.me} />}
+                path={DASHBOARD}
+              />
               <Route element={<CreatingReading />} path={CREATE_READING} />
             </Route>
 
@@ -57,6 +80,7 @@ const App = () => {
           </Routes>
         </Stack>
       </Stack>
+      {isTablet && <Footer userInfo={data?.me} />}
     </Stack>
   );
 };

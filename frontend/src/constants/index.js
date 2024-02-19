@@ -13,6 +13,7 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   PROFILE: "/profile",
   CREATE_READING: "/create-reading",
+  LIST_READINGS: "/readings",
 };
 
 export const colors = {
