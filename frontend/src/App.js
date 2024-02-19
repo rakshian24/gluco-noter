@@ -37,7 +37,7 @@ const App = () => {
       {!isTablet && <Header />}
       <Stack
         sx={{
-          height: isTablet ? "100%" : "calc(100vh - 72px)",
+          height: isTablet ? "calc(100vh - 115px)" : "calc(100vh - 72px)",
           overflowY: "auto",
         }}
       >
@@ -53,7 +53,6 @@ const App = () => {
               <Route element={<Register />} index />
               <Route element={<Login />} path={LOGIN} />
             </Route>
-
             {/* Protected routes */}
             <Route path="" element={<ProtectedRoute />}>
               <Route
