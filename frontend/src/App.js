@@ -36,10 +36,6 @@ const App = () => {
   }
 
   const getAppContentContainerHeight = () => {
-    //For tablets
-    if (isTablet) {
-      return "calc(100vh - 220px)";
-    }
     if (isMobile) {
       if (isWebAppRunningOnIphone) {
         //For iPhones
@@ -49,6 +45,12 @@ const App = () => {
         return "calc(100vh - 115px)";
       }
     }
+
+    //For tablets
+    if (isTablet) {
+      return "calc(100vh - 190px)";
+    }
+
     //For other screens - laptops & higher
     return "calc(100vh - 72px)";
   };
