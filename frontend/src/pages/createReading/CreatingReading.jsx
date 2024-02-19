@@ -8,36 +8,79 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InitialCreateReadingFormValues, glucoseReadingTypes } from "./helpers";
 import { Controller, useForm } from "react-hook-form";
 import CustomSelect from "../../components/CustomSelect";
 import CustomInput from "../../components/CustomInput";
-import { colors, screenSize } from "../../constants";
+import { ROUTES, colors, screenSize } from "../../constants";
 import MultiSelectBox from "../../components/MultiSelectBox";
 import { useMutation } from "@apollo/client";
 import { CREATE_FOOD_MUTATION, CREATE_READING } from "../../graphql/mutations";
-import { showConsumedFoodsTagBox, textInputRegex } from "../../utils";
+import {
+  isValueValid,
+  joinStringsAndConjunctionateLastWord,
+  mealTypeKeyVsMealTypeDescrMap,
+  readingTypeKeyVsDescMap,
+  showConsumedFoodsTagBox,
+  textInputRegex,
+} from "../../utils";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
-const CreatingReading = () => {
+const CreatingReading = ({ userInfo }) => {
   const [selectedMultiValue, setSelectedMultiValue] = useState([]);
   const [, setMultiSelectInputVal] = useState("");
 
   const [createFood, { loading }] = useMutation(CREATE_FOOD_MUTATION);
-  const [createReading] = useMutation(CREATE_READING);
+  const [createReading, { loading: isCreateReadingLoading }] =
+    useMutation(CREATE_READING);
+  const navigate = useNavigate();
 
-  const { control, formState, handleSubmit, watch } = useForm({
-    defaultValues: { ...InitialCreateReadingFormValues },
-    mode: "onChange",
-  });
+  const { control, formState, handleSubmit, watch, getValues, setValue } =
+    useForm({
+      defaultValues: { ...InitialCreateReadingFormValues },
+      mode: "onChange",
+    });
 
   const readingType = watch("type");
+  const reading = watch("reading");
 
   const { errors } = formState;
   const COMMON_PROPS = { control: control, errors: errors };
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
   const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
+
+  useEffect(() => {
+    if (!showConsumedFoodsTagBox(readingType)) {
+      setValue("description", "");
+    }
+  }, [readingType, setValue]);
+
+  useEffect(() => {
+    if (isValueValid(readingType) && parseInt(reading, 10) > 0) {
+      let descriptionText = `${
+        userInfo?.username
+      } - My blood sugar level, ${readingTypeKeyVsDescMap[
+        readingType
+      ]?.toLowerCase()} is ${reading}.`;
+
+      if (showConsumedFoodsTagBox(readingType) && selectedMultiValue.length) {
+        const consumedFoodsArr = selectedMultiValue.map((food) => food.value);
+        descriptionText = `${descriptionText} I had ${joinStringsAndConjunctionateLastWord(
+          consumedFoodsArr
+        )} for the ${mealTypeKeyVsMealTypeDescrMap[readingType]}.`;
+      }
+      setValue("description", descriptionText);
+    }
+  }, [
+    getValues,
+    reading,
+    readingType,
+    selectedMultiValue,
+    setValue,
+    userInfo?.username,
+  ]);
 
   const handleOnMultiSelectInputChange = (value) => {
     setMultiSelectInputVal(value);
@@ -58,13 +101,17 @@ const CreatingReading = () => {
   const onSubmitHandler = async (formValues) => {
     const consumedFoodIds = selectedMultiValue.map((item) => item._id);
 
-    await createReading({
+    const { data } = await createReading({
       variables: {
         ...formValues,
         reading: parseInt(formValues.reading, 10),
         consumedFoods: JSON.stringify([...consumedFoodIds]),
       },
     });
+
+    if (data?.createGlucoseReading?._id) {
+      navigate(ROUTES.DASHBOARD);
+    }
   };
 
   return (
@@ -74,7 +121,7 @@ const CreatingReading = () => {
       </Typography>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
+        open={loading || isCreateReadingLoading}
       >
         <LoadingSpinner />
       </Backdrop>
