@@ -6,12 +6,13 @@ import {
   CircularProgress,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { InitialLoginFormValues } from "./helpers";
 import { emailRegex, textInputRegex } from "../../utils";
 import CustomInput from "../CustomInput";
 import { Link, useNavigate } from "react-router-dom";
-import { ROUTES } from "../../constants";
+import { ROUTES, screenSize } from "../../constants";
 import { useMutation } from "@apollo/client";
 import { AuthContext } from "../../context/authContext";
 import { LOGIN_MUTATION } from "../../graphql/mutations";
@@ -23,6 +24,7 @@ const Login = () => {
     defaultValues: { ...InitialLoginFormValues },
     mode: "onChange",
   });
+  const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
 
   const { errors } = formState;
   const COMMON_PROPS = { control: control, errors: errors };
@@ -106,9 +108,9 @@ const Login = () => {
 
             <Stack
               display={"flex"}
-              direction={"row"}
+              direction={isMobile ? "column" : "row"}
               justifyContent={"space-between"}
-              alignItems={"center"}
+              alignItems={isMobile ? "flex-start" : "center"}
               mt={1}
             >
               <Typography>
@@ -127,7 +129,7 @@ const Login = () => {
                 onClick={() => onSubmitHandler}
                 variant="contained"
                 type="submit"
-                sx={{ width: "120px" }}
+                sx={{ width: "120px", mt: isMobile ? "12px" : 0 }}
               >
                 Login
               </Button>
