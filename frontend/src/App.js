@@ -48,7 +48,7 @@ const App = () => {
 
     //For tablets
     if (isTablet) {
-      return "calc(100vh - 190px)";
+      return "calc(100vh - 140px)";
     }
 
     //For other screens - laptops & higher
