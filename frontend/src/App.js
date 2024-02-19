@@ -35,16 +35,30 @@ const App = () => {
     console.log("ERROR = ", error);
   }
 
+  const getAppContentContainerHeight = () => {
+    //For tablets
+    if (isTablet) {
+      return "calc(100vh - 220px)";
+    }
+    if (isMobile) {
+      if (isWebAppRunningOnIphone) {
+        //For iPhones
+        return "calc(100vh - 170px)";
+      } else {
+        //For Android phones
+        return "calc(100vh - 115px)";
+      }
+    }
+    //For other screens - laptops & higher
+    return "calc(100vh - 72px)";
+  };
+
   return (
     <Stack sx={{ height: "100vh", minHeight: "100vh", margin: 0 }}>
       {!isTablet && <Header />}
       <Stack
         sx={{
-          height: isTablet
-            ? isWebAppRunningOnIphone
-              ? "calc(100vh - 170px)"
-              : "calc(100vh - 115px)"
-            : "calc(100vh - 72px)",
+          height: getAppContentContainerHeight(),
           overflowY: "auto",
         }}
       >
