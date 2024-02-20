@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const getSvgWidth = (width) => {
   //Mobile screens
   if (width <= 500) {
@@ -76,4 +78,24 @@ export const joinStringsAndConjunctionateLastWord = (stringArray) => {
     return stringArray[0];
   }
   return stringArray.slice(0, -1).join(",") + " and " + stringArray.slice(-1);
+};
+
+export const getFormattedDate = (d) => {
+  const today = moment();
+  const parsedDate = moment(d, "DD-MM-YYYY");
+  if (moment(parsedDate).isSame(today, "day")) {
+    return "Today";
+  } else if (moment(parsedDate).isSame(today.subtract(1, "day"), "day")) {
+    return "Yesterday";
+  } else {
+    return moment(d, "DD-MM-YYYY").format("DD-MMM-YYYY").toString();
+  }
+};
+
+export const getReadingsObjectByType = (readingsArr) => {
+  const readingsObj = {};
+  readingsArr.forEach((reading) => {
+    readingsObj[reading.type] = { ...reading };
+  });
+  return readingsObj;
 };

@@ -67,6 +67,7 @@ const App = () => {
         <Stack
           sx={{
             maxWidth: "1300px",
+            width: "100%",
             margin: isTablet ? "0" : "0 auto",
             padding: isMobile ? 2 : 3,
           }}
