@@ -15,6 +15,7 @@ export default {
         isMedsTaken,
         isExercised,
         consumedFoods,
+        insulinUnits,
       } = args;
       const parsedConsumedFoodIds = JSON.parse(consumedFoods);
       const loggedInUserId = getLoggedInUserId(ctx);
@@ -34,6 +35,7 @@ export default {
         isMedsTaken,
         consumedFoods: parsedConsumedFoodIds,
         user: userId,
+        insulinUnits,
       });
 
       const res = await newReading.save();
