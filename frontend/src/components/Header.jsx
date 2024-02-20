@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authContext";
+import { useAuth } from "../context/authContext";
 import { ROUTES } from "../constants";
 import client from "../apolloClient";
 
 const Header = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const onLogOut = () => {
-    logOut();
     client.clearStore();
+    logoutUser();
     navigate(ROUTES.LOGIN);
   };
   return (

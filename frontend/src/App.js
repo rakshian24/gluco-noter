@@ -13,16 +13,11 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login/Login";
 import CreatingReading from "./pages/createReading/CreatingReading";
 import Footer from "./components/Footer/Footer";
-import { GET_ME } from "./graphql/queries";
-import { useQuery } from "@apollo/client";
-import LoadingSpinner from "./components/LoadingSpinner";
-import { useContext } from "react";
-import { AuthContext } from "./context/authContext";
+import { useAuth } from "./context/authContext";
 import ReadingDetails from "./pages/readings/details/ReadingDetails";
 
 const App = () => {
-  const { data, loading, error } = useQuery(GET_ME);
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [screenWidth] = useWindowSize();
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
   const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
@@ -30,13 +25,6 @@ const App = () => {
 
   const { REGISTER, LOGIN, DASHBOARD, CREATE_READING, READING_DETAILS } =
     ROUTES;
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    console.log("ERROR = ", error);
-  }
 
   const getAppContentContainerHeight = () => {
     if (isMobile) {
@@ -82,12 +70,9 @@ const App = () => {
             </Route>
             {/* Protected routes */}
             <Route path="" element={<ProtectedRoute />}>
+              <Route element={<Dashboard userInfo={user} />} path={DASHBOARD} />
               <Route
-                element={<Dashboard userInfo={data?.me} />}
-                path={DASHBOARD}
-              />
-              <Route
-                element={<CreatingReading userInfo={data?.me} />}
+                element={<CreatingReading userInfo={user} />}
                 path={CREATE_READING}
               />
               <Route element={<ReadingDetails />} path={READING_DETAILS} />
@@ -110,7 +95,7 @@ const App = () => {
           </Routes>
         </Stack>
       </Stack>
-      {isTablet && user?.userId && <Footer userInfo={data?.me} />}
+      {isTablet && user?.userId && <Footer userInfo={user} />}
     </Stack>
   );
 };

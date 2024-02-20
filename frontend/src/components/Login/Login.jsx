@@ -14,11 +14,11 @@ import CustomInput from "../CustomInput";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES, screenSize } from "../../constants";
 import { useMutation } from "@apollo/client";
-import { AuthContext } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { LOGIN_MUTATION } from "../../graphql/mutations";
 
 const Login = () => {
-  const { user, login } = useContext(AuthContext);
+  const { user, storeTokenInLS } = useAuth();
   const navigate = useNavigate();
   const { control, formState, handleSubmit } = useForm({
     defaultValues: { ...InitialLoginFormValues },
@@ -44,7 +44,7 @@ const Login = () => {
       },
     });
     if (data?.loginUser?.token) {
-      login(data?.loginUser);
+      storeTokenInLS(data?.loginUser?.token);
       navigate(ROUTES.DASHBOARD);
     }
   };

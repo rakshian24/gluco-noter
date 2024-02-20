@@ -13,12 +13,12 @@ import { emailRegex, textInputRegex } from "../../utils";
 import CustomInput from "../CustomInput";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES, screenSize } from "../../constants";
-import { AuthContext } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER_MUTATION } from "../../graphql/mutations";
 
 const Register = () => {
-  const { login, user } = useContext(AuthContext);
+  const { storeTokenInLS, user } = useAuth();
   const navigate = useNavigate();
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER_MUTATION);
@@ -46,7 +46,7 @@ const Register = () => {
       },
     });
     if (data?.registerUser?.token) {
-      login(data?.registerUser);
+      storeTokenInLS(data?.registerUser?.token);
       navigate(ROUTES.DASHBOARD);
     }
   };
