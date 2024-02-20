@@ -14,6 +14,7 @@ export const ROUTES = {
   PROFILE: "/profile",
   CREATE_READING: "/create-reading",
   LIST_READINGS: "/readings",
+  READING_DETAILS: "/reading/:date",
 };
 
 export const colors = {

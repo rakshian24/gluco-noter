@@ -3,6 +3,7 @@ import { Grid, Stack, Typography } from "@mui/material";
 
 import { ListContainer, StyledLegend } from "./styles";
 import { getFormattedDate, getReadingsObjectByType } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ headerText }) => {
   return (
@@ -42,6 +43,7 @@ const Row = ({ children }) => {
 };
 
 const ReadingListItem = ({ reading }) => {
+  const navigate = useNavigate();
   const date = getFormattedDate(reading._id);
   const dayReadingsArr = reading.results;
   const readingsObjByType = getReadingsObjectByType(dayReadingsArr);
@@ -51,7 +53,7 @@ const ReadingListItem = ({ reading }) => {
   };
 
   const handleOnReadingCardClick = () => {
-    // navigate(`/reading/${reading._id}`);
+    navigate(`/reading/${reading._id}`);
   };
 
   return (
