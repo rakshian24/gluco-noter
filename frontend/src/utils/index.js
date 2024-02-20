@@ -77,7 +77,7 @@ export const joinStringsAndConjunctionateLastWord = (stringArray) => {
   if (stringArray.length === 1) {
     return stringArray[0];
   }
-  return stringArray.slice(0, -1).join(",") + " and " + stringArray.slice(-1);
+  return stringArray.slice(0, -1).join(", ") + " and " + stringArray.slice(-1);
 };
 
 export const getFormattedDate = (d) => {
@@ -102,4 +102,20 @@ export const getReadingsObjectByType = (readingsArr) => {
 
 export const capitalizeFirstLetter = (string) => {
   return string ? string.charAt(0).toUpperCase() + string.slice(1) : "";
+};
+
+export const showInsulinUnitsField = (selectedValue) => {
+  return ["BB", "BL", "BD", "AD"].includes(selectedValue);
+};
+
+export const isFiaspInsulin = (readingType) => {
+  return ["BB", "BL", "BD"].includes(readingType);
+};
+
+export const isHumInsulinN = (readingType) => {
+  return ["AD"].includes(readingType);
+};
+
+export const getFormattedTime = (d) => {
+  return moment(d, "hh:mm a").format("hh:mm a").toString();
 };

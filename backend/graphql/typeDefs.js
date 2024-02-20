@@ -37,6 +37,7 @@ export const typeDefs = `
     reading: Int!
     isMedsTaken: Boolean!
     isExercised: Boolean!
+    insulinUnits: Int!
     consumedFoods: [Food]!
     description: String
     createdAt: DateTime
@@ -91,6 +92,7 @@ export const typeDefs = `
       isMedsTaken: Boolean!
       isExercised: Boolean!
       description: String
-      consumedFoods: ID!): GlucoseReading
+      consumedFoods: ID!
+      insulinUnits: Int!): GlucoseReading
   }
 `;

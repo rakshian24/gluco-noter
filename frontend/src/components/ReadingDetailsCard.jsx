@@ -1,10 +1,33 @@
 import { Chip, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import { ListContainer, StyledLegend } from "./styles";
-import { capitalizeFirstLetter, readingTypeKeyVsDescMap } from "../utils";
+import {
+  capitalizeFirstLetter,
+  isFiaspInsulin,
+  readingTypeKeyVsDescMap,
+  showInsulinUnitsField,
+  isHumInsulinN,
+  getFormattedTime,
+} from "../utils";
 
 const ReadingDetailsCard = ({ readingObj }) => {
-  const { type, reading, consumedFoods, description } = readingObj;
+  const { type, reading, consumedFoods, description, insulinUnits, createdAt } =
+    readingObj;
+
+  const showInsulinUnitsDetails =
+    showInsulinUnitsField(type) && insulinUnits > 0;
+
+  const isFiasp = isFiaspInsulin(type);
+  const isHum = isHumInsulinN(type);
+
+  const insulinDetails = isFiasp
+    ? `Fiasp insulin`
+    : isHum
+    ? `HumInsulin N`
+    : ``;
+
+  const readingTime = getFormattedTime(createdAt);
+
   return (
     <Grid item xs={12} md={6}>
       <ListContainer>
@@ -20,7 +43,11 @@ const ReadingDetailsCard = ({ readingObj }) => {
               })}
             </Stack>
           )}
-          <Typography>{description}</Typography>
+          <Typography>
+            {showInsulinUnitsDetails
+              ? `${description} I took ${insulinUnits} units of ${insulinDetails} at ${readingTime}.`
+              : description}
+          </Typography>
         </Stack>
       </ListContainer>
     </Grid>
