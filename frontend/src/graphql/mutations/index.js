@@ -39,7 +39,7 @@ export const CREATE_FOOD_MUTATION = gql`
 `;
 
 export const CREATE_READING = gql`
-  mutation MyMutation(
+  mutation CreateReading(
     $type: GlucoseReadingType!
     $reading: Int!
     $isMedsTaken: Boolean!

@@ -51,3 +51,30 @@ export const GET_ALL_READINGS = gql`
     }
   }
 `;
+
+export const GET_READINGS_FOR_DATE = gql`
+  query getAllReadingForDate($date: String!) {
+    getAllReadingForDate(date: $date) {
+      _id
+      consumedFoods {
+        _id
+        createdAt
+        label
+        updatedAt
+        value
+      }
+      createdAt
+      description
+      isExercised
+      isMedsTaken
+      reading
+      type
+      updatedAt
+      user {
+        _id
+        email
+        username
+      }
+    }
+  }
+`;

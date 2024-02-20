@@ -18,6 +18,7 @@ import { useQuery } from "@apollo/client";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
+import ReadingDetails from "./pages/readings/details/ReadingDetails";
 
 const App = () => {
   const { data, loading, error } = useQuery(GET_ME);
@@ -27,7 +28,8 @@ const App = () => {
   const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
   const isPcAndAbove = useMediaQuery(`(min-width:${screenSize.pc})`);
 
-  const { REGISTER, LOGIN, DASHBOARD, CREATE_READING } = ROUTES;
+  const { REGISTER, LOGIN, DASHBOARD, CREATE_READING, READING_DETAILS } =
+    ROUTES;
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -88,6 +90,7 @@ const App = () => {
                 element={<CreatingReading userInfo={data?.me} />}
                 path={CREATE_READING}
               />
+              <Route element={<ReadingDetails />} path={READING_DETAILS} />
             </Route>
 
             <Route
