@@ -99,3 +99,7 @@ export const getReadingsObjectByType = (readingsArr) => {
   });
   return readingsObj;
 };
+
+export const capitalizeFirstLetter = (string) => {
+  return string ? string.charAt(0).toUpperCase() + string.slice(1) : "";
+};

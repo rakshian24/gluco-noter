@@ -59,11 +59,9 @@ const CreatingReading = ({ userInfo }) => {
 
   useEffect(() => {
     if (isValueValid(readingType) && parseInt(reading, 10) > 0) {
-      let descriptionText = `${
-        userInfo?.username
-      } - My blood sugar level, ${readingTypeKeyVsDescMap[
+      let descriptionText = `My blood sugar level, ${readingTypeKeyVsDescMap[
         readingType
-      ]?.toLowerCase()} is ${reading}.`;
+      ]?.toLowerCase()} is ${reading} mg/dL.`;
 
       if (showConsumedFoodsTagBox(readingType) && selectedMultiValue.length) {
         const consumedFoodsArr = selectedMultiValue.map((food) => food.value);
@@ -197,7 +195,7 @@ const CreatingReading = ({ userInfo }) => {
               />
 
               <FormControlLabel
-                label="Did you exercise today?"
+                label="Did you exercise?"
                 sx={{ width: isTablet ? "100%" : "50%" }}
                 control={
                   <Controller
