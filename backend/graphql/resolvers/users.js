@@ -1,7 +1,7 @@
 import { ApolloError } from "apollo-server-errors";
-import jwt from "jsonwebtoken";
 import User from "../../models/User.js";
 import getLoggedInUserId from "../../middleware/getLoggedInUserId.js";
+import { generateToken } from "../../utils/index.js";
 
 export default {
   Mutation: {
@@ -21,12 +21,8 @@ export default {
 
       const newUser = new User({ username, email, password, confirmPassword });
 
-      const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-      });
-
+      const token = await generateToken(newUser);
       const res = await newUser.save();
-      
       const response = { user: { ...res._doc }, token };
 
       return response;
@@ -36,10 +32,7 @@ export default {
       const user = await User.findOne({ email });
 
       if (user && (await user.matchPassword(password))) {
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-          expiresIn: "1d",
-        });
-
+        const token = await generateToken(user);
         const response = { user: { ...user._doc }, token };
 
         return response;
