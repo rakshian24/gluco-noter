@@ -3,6 +3,7 @@ export const InitialCreateReadingFormValues = {
   reading: "",
   isMedsTaken: false,
   isExercised: false,
+  insulinUnits: 0,
   consumedFoods: [],
   description: "",
 };

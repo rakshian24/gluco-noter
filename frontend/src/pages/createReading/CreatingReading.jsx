@@ -23,6 +23,7 @@ import {
   mealTypeKeyVsMealTypeDescrMap,
   readingTypeKeyVsDescMap,
   showConsumedFoodsTagBox,
+  showInsulinUnitsField,
   textInputRegex,
 } from "../../utils";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -103,6 +104,7 @@ const CreatingReading = ({ userInfo }) => {
       variables: {
         ...formValues,
         reading: parseInt(formValues.reading, 10),
+        insulinUnits: parseInt(formValues.insulinUnits, 10),
         consumedFoods: JSON.stringify([...consumedFoodIds]),
       },
     });
@@ -212,6 +214,31 @@ const CreatingReading = ({ userInfo }) => {
                 }
               />
             </Stack>
+            {showInsulinUnitsField(readingType) && (
+              <Stack width={isTablet ? "100%" : "50%"}>
+                <Controller
+                  name="insulinUnits"
+                  {...COMMON_PROPS}
+                  rules={{
+                    required: true,
+                    pattern: {
+                      value: /^(?!0+(?:\0+)?)\d*(?:\d+)?$/,
+                      message: "Special characters are not allowed.",
+                    },
+                  }}
+                  render={({ field, fieldState: { error } }) => (
+                    <CustomInput
+                      {...field}
+                      type="number"
+                      error={error !== undefined}
+                      styles={{ width: "100%" }}
+                      placeholder="Enter insulin units"
+                      label="Insulin units"
+                    />
+                  )}
+                />
+              </Stack>
+            )}
             {showConsumedFoodsTagBox(readingType) && (
               <Stack gap={"4px"}>
                 <MultiSelectBox

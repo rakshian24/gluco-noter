@@ -40,6 +40,7 @@ export const GET_ALL_READINGS = gql`
         isExercised
         isMedsTaken
         reading
+        insulinUnits
         type
         updatedAt
         user {
@@ -68,6 +69,7 @@ export const GET_READINGS_FOR_DATE = gql`
       isExercised
       isMedsTaken
       reading
+      insulinUnits
       type
       updatedAt
       user {

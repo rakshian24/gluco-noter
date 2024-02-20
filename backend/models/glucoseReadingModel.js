@@ -85,7 +85,7 @@ const glucoseReadingSchema = new Schema(
 
     description: {
       type: String,
-      maxLength: [250, "Description is longer than the max length(250)"],
+      maxLength: [350, "Description is longer than the max length(350)"],
     },
   },
   {
