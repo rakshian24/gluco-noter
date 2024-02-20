@@ -21,3 +21,33 @@ export const GET_ALL_FOODS = gql`
     }
   }
 `;
+
+export const GET_ALL_READINGS = gql`
+  query {
+    getAllReadingsGroupedByDate {
+      _id
+      results {
+        _id
+        consumedFoods {
+          _id
+          createdAt
+          label
+          updatedAt
+          value
+        }
+        createdAt
+        description
+        isExercised
+        isMedsTaken
+        reading
+        type
+        updatedAt
+        user {
+          _id
+          email
+          username
+        }
+      }
+    }
+  }
+`;

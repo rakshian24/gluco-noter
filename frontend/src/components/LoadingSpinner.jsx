@@ -20,7 +20,7 @@ const LoadingSpinner = ({ width = "100px" }) => {
       >
         <path
           d="M21 50A29 29 0 0 0 79 50A29 31 0 0 1 21 50"
-          fill={colors.lightGrey}
+          fill={colors.primaryBlue}
           stroke="none"
         >
           <animateTransform
