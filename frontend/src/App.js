@@ -25,6 +25,7 @@ const App = () => {
   const [screenWidth] = useWindowSize();
   const isTablet = useMediaQuery(`(max-width:${screenSize.tablet})`);
   const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
+  const isPcAndAbove = useMediaQuery(`(min-width:${screenSize.pc})`);
 
   const { REGISTER, LOGIN, DASHBOARD, CREATE_READING } = ROUTES;
   if (loading) {
@@ -67,7 +68,7 @@ const App = () => {
         <Stack
           sx={{
             maxWidth: "1300px",
-            width: "100%",
+            ...(isPcAndAbove && { width: "100%" }),
             margin: isTablet ? "0" : "0 auto",
             padding: isMobile ? 2 : 3,
           }}

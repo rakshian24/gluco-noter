@@ -61,33 +61,33 @@ const ReadingListItem = ({ reading }) => {
         <Stack gap={2}>
           <Row>
             <Cell>
-              <Header headerText="Before breakfast" />
+              <Header headerText="Bfr breakfast" />
               <Value value={getReadingVal("BB")} />
             </Cell>
             <Cell>
-              <Header headerText="After breakfast" />
+              <Header headerText="Aft breakfast" />
               <Value value={getReadingVal("AB")} />
             </Cell>
           </Row>
 
           <Row>
             <Cell>
-              <Header headerText="Before lunch" />
+              <Header headerText="Bfr lunch" />
               <Value value={getReadingVal("BL")} />
             </Cell>
             <Cell>
-              <Header headerText="After lunch" />
+              <Header headerText="Aft lunch" />
               <Value value={getReadingVal("AL")} />
             </Cell>
           </Row>
 
           <Row>
             <Cell>
-              <Header headerText="Before dinner" />
+              <Header headerText="Bfr dinner" />
               <Value value={getReadingVal("BD")} />
             </Cell>
             <Cell>
-              <Header headerText="After dinner" />
+              <Header headerText="Aft dinner" />
               <Value value={getReadingVal("AD")} />
             </Cell>
           </Row>
