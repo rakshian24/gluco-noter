@@ -67,7 +67,7 @@ export const getInitials = (str) => {
     .filter((initial) => initial)
     .join("");
 
-  return initials || "RS";
+  return initials.toUpperCase() || "RS";
 };
 
 export const joinStringsAndConjunctionateLastWord = (stringArray) => {
