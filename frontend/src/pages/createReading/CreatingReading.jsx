@@ -18,6 +18,7 @@ import MultiSelectBox from "../../components/MultiSelectBox";
 import { useMutation } from "@apollo/client";
 import { CREATE_FOOD_MUTATION, CREATE_READING } from "../../graphql/mutations";
 import {
+  getTimestampInISOStringFormat,
   isValueValid,
   joinStringsAndConjunctionateLastWord,
   mealTypeKeyVsMealTypeDescrMap,
@@ -29,6 +30,8 @@ import {
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { GET_ALL_FOODS, GET_ALL_READINGS } from "../../graphql/queries";
+import moment from "moment";
+import CustomDateTimePicker from "../../components/CustomDateTimePicker";
 
 const CreatingReading = ({ userInfo }) => {
   const [selectedMultiValue, setSelectedMultiValue] = useState([]);
@@ -48,6 +51,7 @@ const CreatingReading = ({ userInfo }) => {
 
   const readingType = watch("type");
   const reading = watch("reading");
+  const DATE_TIME_FORMAT = "DD-MMM-YYYY, hh:mm a";
 
   const { errors } = formState;
   const COMMON_PROPS = { control: control, errors: errors };
@@ -110,6 +114,14 @@ const CreatingReading = ({ userInfo }) => {
         reading: parseInt(formValues.reading, 10),
         insulinUnits: parseInt(formValues.insulinUnits, 10),
         consumedFoods: JSON.stringify([...consumedFoodIds]),
+        createdAt: getTimestampInISOStringFormat(
+          formValues.createdAt,
+          DATE_TIME_FORMAT
+        ),
+        updatedAt: getTimestampInISOStringFormat(
+          formValues.createdAt,
+          DATE_TIME_FORMAT
+        ),
       },
       refetchQueries: [{ query: GET_ALL_READINGS }],
     });
@@ -217,6 +229,30 @@ const CreatingReading = ({ userInfo }) => {
                     )}
                   />
                 }
+              />
+            </Stack>
+            <Stack
+              direction={isMobile ? "column" : "row"}
+              width={"100%"}
+              gap={2}
+            >
+              <Controller
+                name="createdAt"
+                rules={{
+                  required: true,
+                }}
+                {...COMMON_PROPS}
+                render={({ field: { value, onChange } }) => (
+                  <CustomDateTimePicker
+                    format={DATE_TIME_FORMAT}
+                    value={moment(new Date(value ?? 0))}
+                    styles={{ width: "100%" }}
+                    onChange={(newValue) =>
+                      onChange(moment(newValue).format(DATE_TIME_FORMAT))
+                    }
+                    label="Reading datetime"
+                  />
+                )}
               />
             </Stack>
             {showInsulinUnitsField(readingType) && (

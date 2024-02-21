@@ -47,6 +47,8 @@ export const CREATE_READING = gql`
     $description: String
     $consumedFoods: ID!
     $insulinUnits: Int!
+    $createdAt: String!
+    $updatedAt: String!
   ) {
     createGlucoseReading(
       type: $type
@@ -56,6 +58,8 @@ export const CREATE_READING = gql`
       description: $description
       consumedFoods: $consumedFoods
       insulinUnits: $insulinUnits
+      createdAt: $createdAt
+      updatedAt: $updatedAt
     ) {
       _id
       reading

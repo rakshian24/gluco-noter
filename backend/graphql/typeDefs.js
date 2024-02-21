@@ -93,6 +93,8 @@ export const typeDefs = `
       isExercised: Boolean!
       description: String
       consumedFoods: ID!
-      insulinUnits: Int!): GlucoseReading
+      insulinUnits: Int!
+      createdAt: String!
+      updatedAt: String!): GlucoseReading
   }
 `;
