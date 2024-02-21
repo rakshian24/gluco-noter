@@ -7,7 +7,7 @@ import {
   readingTypeKeyVsDescMap,
   showInsulinUnitsField,
   isHumInsulinN,
-  getFormattedTime,
+  getFormattedTimeStamp,
 } from "../utils";
 
 const ReadingDetailsCard = ({ readingObj }) => {
@@ -26,7 +26,7 @@ const ReadingDetailsCard = ({ readingObj }) => {
     ? `HumInsulin N`
     : ``;
 
-  const readingTime = getFormattedTime(createdAt);
+  const readingTime = getFormattedTimeStamp(createdAt);
 
   return (
     <Grid item xs={12} md={6}>
@@ -46,7 +46,7 @@ const ReadingDetailsCard = ({ readingObj }) => {
           <Typography>
             {showInsulinUnitsDetails
               ? `${description} I took ${insulinUnits} units of ${insulinDetails} at ${readingTime}.`
-              : description}
+              : `${description} I took the reading at ${readingTime}`}
           </Typography>
         </Stack>
       </ListContainer>

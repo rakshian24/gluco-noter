@@ -116,6 +116,6 @@ export const isHumInsulinN = (readingType) => {
   return ["AD"].includes(readingType);
 };
 
-export const getFormattedTime = (d) => {
-  return moment(d, "hh:mm a").format("hh:mm a").toString();
+export const getFormattedTimeStamp = (value) => {
+  return moment(value).format("hh:mm A");
 };
