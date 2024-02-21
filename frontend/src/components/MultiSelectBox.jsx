@@ -45,6 +45,24 @@ const MultiSelectBox = ({
           paddingBottom: "12px",
           backgroundColor: state.isSelected ? colors.lightGrey : colors.white,
         }),
+        multiValue: (styles) => ({
+          ...styles,
+          paddingTop: "8px",
+          paddingBottom: "8px",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          borderRadius: "8px",
+          fontSize: "18px",
+          margin: "2px 4px",
+        }),
+        multiValueRemove: (styles) => ({
+          ...styles,
+          marginLeft: "4px",
+          paddingTop: "4px",
+          paddingBottom: "4px",
+          paddingLeft: "8px",
+          paddingRight: "8px",
+        }),
         control: (baseStyles, state) => ({
           ...baseStyles,
           height: "auto",
@@ -55,12 +73,12 @@ const MultiSelectBox = ({
           border: `1px solid ${colors.darkGrey}`,
           borderRadius: "8px",
         }),
-        valueContainer: (baseStyles) => ({
+        valueContainer: (baseStyles, state) => ({
           ...baseStyles,
           height: "auto",
-          paddingTop: "12px",
-          paddingBottom: "12px",
-          paddingLeft: "16px",
+          paddingTop: state.hasValue ? "6px" : "12px",
+          paddingBottom: state.hasValue ? "6px" : "12px",
+          paddingLeft: state.hasValue ? "8px" : "12px",
           fontSize: "16px",
         }),
         container: (baseStyles) => ({

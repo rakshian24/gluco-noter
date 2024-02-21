@@ -9,6 +9,7 @@ import {
   isHumInsulinN,
   getFormattedTimeStamp,
 } from "../utils";
+import { colors } from "../constants";
 
 const ReadingDetailsCard = ({ readingObj }) => {
   const { type, reading, consumedFoods, description, insulinUnits, createdAt } =
@@ -36,12 +37,20 @@ const ReadingDetailsCard = ({ readingObj }) => {
         </StyledLegend>
         <Stack gap={2}>
           <Typography>{reading} mg/dL</Typography>
-          {consumedFoods.length > 0 && (
-            <Stack gap={2} direction={"row"}>
+          {consumedFoods?.length > 0 && (
+            <Grid container spacing={1}>
               {consumedFoods.map((food) => {
-                return <Chip key={food._id} label={food.value} />;
+                return (
+                  <Grid key={food._id} item gap={2}>
+                    <Chip
+                      key={food._id}
+                      label={food.value}
+                      sx={{ fontSize: "14px", color: colors.contentSecondary }}
+                    />
+                  </Grid>
+                );
               })}
-            </Stack>
+            </Grid>
           )}
           <Typography>
             {showInsulinUnitsDetails
