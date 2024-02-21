@@ -20,6 +20,7 @@ const ReadingDetails = () => {
     variables: {
       date,
     },
+    fetchPolicy: "network-only",
   });
 
   if (loading) {

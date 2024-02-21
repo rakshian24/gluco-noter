@@ -28,12 +28,14 @@ import {
 } from "../../utils";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { GET_ALL_FOODS, GET_ALL_READINGS } from "../../graphql/queries";
 
 const CreatingReading = ({ userInfo }) => {
   const [selectedMultiValue, setSelectedMultiValue] = useState([]);
   const [, setMultiSelectInputVal] = useState("");
 
-  const [createFood, { loading }] = useMutation(CREATE_FOOD_MUTATION);
+  const [createFood, { loading: isFoodCreateLoading }] =
+    useMutation(CREATE_FOOD_MUTATION);
   const [createReading, { loading: isCreateReadingLoading }] =
     useMutation(CREATE_READING);
   const navigate = useNavigate();
@@ -90,11 +92,13 @@ const CreatingReading = ({ userInfo }) => {
   };
 
   const handleOnCreateFood = async (query) => {
-    await createFood({
+    const { data } = await createFood({
       variables: {
         foodInput: { value: query, label: query },
       },
+      refetchQueries: [{ query: GET_ALL_FOODS }],
     });
+    setSelectedMultiValue([...selectedMultiValue, data?.createFood]);
   };
 
   const onSubmitHandler = async (formValues) => {
@@ -107,6 +111,7 @@ const CreatingReading = ({ userInfo }) => {
         insulinUnits: parseInt(formValues.insulinUnits, 10),
         consumedFoods: JSON.stringify([...consumedFoodIds]),
       },
+      refetchQueries: [{ query: GET_ALL_READINGS }],
     });
 
     if (data?.createGlucoseReading?._id) {
@@ -121,7 +126,7 @@ const CreatingReading = ({ userInfo }) => {
       </Typography>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading || isCreateReadingLoading}
+        open={isFoodCreateLoading || isCreateReadingLoading}
       >
         <LoadingSpinner />
       </Backdrop>
