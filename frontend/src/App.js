@@ -15,6 +15,7 @@ import CreatingReading from "./pages/createReading/CreatingReading";
 import Footer from "./components/Footer/Footer";
 import { useAuth } from "./context/authContext";
 import ReadingDetails from "./pages/readings/details/ReadingDetails";
+import Profile from "./pages/profile";
 
 const App = () => {
   const { user } = useAuth();
@@ -23,8 +24,14 @@ const App = () => {
   const isMobile = useMediaQuery(`(max-width:${screenSize.mobile})`);
   const isPcAndAbove = useMediaQuery(`(min-width:${screenSize.pc})`);
 
-  const { REGISTER, LOGIN, DASHBOARD, CREATE_READING, READING_DETAILS } =
-    ROUTES;
+  const {
+    REGISTER,
+    LOGIN,
+    DASHBOARD,
+    CREATE_READING,
+    READING_DETAILS,
+    PROFILE,
+  } = ROUTES;
 
   const getAppContentContainerHeight = () => {
     if (isMobile) {
@@ -76,6 +83,7 @@ const App = () => {
                 path={CREATE_READING}
               />
               <Route element={<ReadingDetails />} path={READING_DETAILS} />
+              {isTablet && <Route element={<Profile />} path={PROFILE} />}
             </Route>
 
             <Route

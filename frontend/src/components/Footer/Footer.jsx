@@ -26,23 +26,31 @@ const Footer = ({ userInfo }) => {
       <NavLink to={DASHBOARD}>
         <RiDashboardFill
           size={30}
-          color={pathname === DASHBOARD ? "#4AB9A4" : "#D7D8D9"}
+          color={pathname === DASHBOARD ? colors.primaryBlue : "#D7D8D9"}
         />
       </NavLink>
       <NavLink to={CREATE_READING}>
         <RiAddCircleFill
           size={35}
-          color={pathname === CREATE_READING ? "#4AB9A4" : "#D7D8D9"}
+          color={pathname === CREATE_READING ? colors.primaryBlue : "#D7D8D9"}
         />
       </NavLink>
       <NavLink to={LIST_READINGS}>
         <FaListAlt
           size={30}
-          color={pathname === LIST_READINGS ? "#4AB9A4" : "#D7D8D9"}
+          color={pathname === LIST_READINGS ? colors.primaryBlue : "#D7D8D9"}
         />
       </NavLink>
       <NavLink to={PROFILE}>
-        <Avatar sx={{ width: "32px", height: "32px", fontSize: "16px" }}>
+        <Avatar
+          sx={{
+            width: "32px",
+            height: "32px",
+            fontSize: "16px",
+            backgroundColor:
+              pathname === PROFILE ? colors.primaryBlue : "#D7D8D9",
+          }}
+        >
           {getInitials(userInfo?.username)}
         </Avatar>
       </NavLink>
