@@ -47,6 +47,7 @@ const Footer = ({ userInfo }) => {
             width: "32px",
             height: "32px",
             fontSize: "16px",
+            fontWeight: 500,
             backgroundColor:
               pathname === PROFILE ? colors.primaryBlue : "#D7D8D9",
           }}
