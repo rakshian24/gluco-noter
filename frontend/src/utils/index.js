@@ -54,8 +54,6 @@ export const isAppRunningOnIos16 = () => {
 export const isStandAloneAndRunningOnIos16 = () =>
   isRunningStandalone() && isAppRunningOnIos16();
 
-export const isWebAppRunningOnIphone = navigator.platform === "iPhone";
-
 export const getInitials = (str) => {
   if (!str) return "RS";
 

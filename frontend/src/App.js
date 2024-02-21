@@ -7,7 +7,7 @@ import Register from "./components/Register/Register";
 import FallBackScreen from "./components/FallbackScreen";
 import PageNotFoundAnimated from "./components/PageNotFoundAnimated";
 import { useWindowSize } from "./hooks/useWindowResize";
-import { getSvgWidth, isWebAppRunningOnIphone } from "./utils";
+import { getSvgWidth } from "./utils";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login/Login";
@@ -33,32 +33,12 @@ const App = () => {
     PROFILE,
   } = ROUTES;
 
-  const getAppContentContainerHeight = () => {
-    if (isMobile) {
-      if (isWebAppRunningOnIphone) {
-        //For iPhones
-        return "calc(100vh - 170px)";
-      } else {
-        //For Android phones
-        return "calc(100vh - 115px)";
-      }
-    }
-
-    //For tablets
-    if (isTablet) {
-      return "calc(100vh - 155px)";
-    }
-
-    //For other screens - laptops & higher
-    return "calc(100vh - 72px)";
-  };
-
   return (
     <Stack sx={{ height: "100vh", minHeight: "100vh", margin: 0 }}>
       {!isTablet && <Header />}
       <Stack
         sx={{
-          height: getAppContentContainerHeight(),
+          height: "100%",
           overflowY: "auto",
         }}
       >
