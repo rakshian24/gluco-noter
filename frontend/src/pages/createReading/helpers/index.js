@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const InitialCreateReadingFormValues = {
   type: "",
   reading: "",
@@ -6,6 +8,7 @@ export const InitialCreateReadingFormValues = {
   insulinUnits: 0,
   consumedFoods: [],
   description: "",
+  createdAt: moment(new Date()),
 };
 
 export const glucoseReadingTypes = [

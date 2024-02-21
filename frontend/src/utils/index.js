@@ -117,3 +117,7 @@ export const isHumInsulinN = (readingType) => {
 export const getFormattedTimeStamp = (value) => {
   return moment(value).format("hh:mm A");
 };
+
+export const getTimestampInISOStringFormat = (dateValue, dateFormat) => {
+  return moment(dateValue, dateFormat).toISOString();
+};
