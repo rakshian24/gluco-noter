@@ -80,3 +80,24 @@ export const GET_READINGS_FOR_DATE = gql`
     }
   }
 `;
+
+export const GET_READINGS_REPORT = gql`
+  query {
+    getReadingsReport {
+      date
+      bb
+      breakfast
+      ab
+      bl
+      lunch
+      al
+      bd
+      dinner
+      ad
+      morningInsulinUnits
+      afternoonInsulinUnits
+      eveningInsulinUnits
+      nightInsulinUnits
+    }
+  }
+`;

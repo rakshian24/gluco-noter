@@ -1,6 +1,7 @@
 export const typeDefs = `
 
   scalar DateTime
+  scalar IntOrString
 
   type User {
     _id: ID
@@ -74,12 +75,30 @@ export const typeDefs = `
     _id: String
     results: [GlucoseReading]
   }
+
+  type ReadingReport {
+    date: String
+    bb: IntOrString
+    breakfast: String
+    ab: IntOrString
+    bl: IntOrString
+    lunch: String
+    al: IntOrString
+    bd: IntOrString
+    dinner: String
+    ad: IntOrString
+    morningInsulinUnits: IntOrString
+    afternoonInsulinUnits: IntOrString
+    eveningInsulinUnits: IntOrString
+    nightInsulinUnits: IntOrString
+  }
   
   type Query {
     me: User
     getAllFoods: [Food]
     getAllReadingsGroupedByDate: [GlucoseReadingsGroupedByDate]
     getAllReadingForDate(date: String!): [GlucoseReading]
+    getReadingsReport: [ReadingReport]
   }
   
   type Mutation {
