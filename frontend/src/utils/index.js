@@ -121,3 +121,47 @@ export const getFormattedTimeStamp = (value) => {
 export const getTimestampInISOStringFormat = (dateValue, dateFormat) => {
   return moment(dateValue, dateFormat).toISOString();
 };
+
+export const formatCell = (value) => (value ? value : "---");
+export const formatTimeCell = (value) =>
+  value ? getFormattedTimeStamp(value) : "---";
+
+export const getFormattedReportCells = (item) => {
+  if (item.date.includes("time")) {
+    return {
+      ...item,
+      date: capitalizeFirstLetter(item.date.split("_")[1]),
+      bb: formatTimeCell(item.bb),
+      breakfast: formatTimeCell(item.breakfast),
+      ab: formatTimeCell(item.ab),
+      bl: formatTimeCell(item.bl),
+      lunch: formatTimeCell(item.lunch),
+      al: formatTimeCell(item.al),
+      bd: formatTimeCell(item.bd),
+      dinner: formatTimeCell(item.dinner),
+      ad: formatTimeCell(item.ad),
+      morningInsulinUnits: formatTimeCell(item.morningInsulinUnits),
+      afternoonInsulinUnits: formatTimeCell(item.afternoonInsulinUnits),
+      eveningInsulinUnits: formatTimeCell(item.eveningInsulinUnits),
+      nightInsulinUnits: formatTimeCell(item.nightInsulinUnits),
+    };
+  } else {
+    return {
+      ...item,
+      date: moment(item.date).format("DD-MMM-YYYY"),
+      bb: formatCell(item.bb),
+      breakfast: formatCell(item.breakfast),
+      ab: formatCell(item.ab),
+      bl: formatCell(item.bl),
+      lunch: formatCell(item.lunch),
+      al: formatCell(item.al),
+      bd: formatCell(item.bd),
+      dinner: formatCell(item.dinner),
+      ad: formatCell(item.ad),
+      morningInsulinUnits: formatCell(item.morningInsulinUnits),
+      afternoonInsulinUnits: formatCell(item.afternoonInsulinUnits),
+      eveningInsulinUnits: formatCell(item.eveningInsulinUnits),
+      nightInsulinUnits: formatCell(item.nightInsulinUnits),
+    };
+  }
+};

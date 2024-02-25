@@ -15,59 +15,59 @@ const columnHelper = createMRTColumnHelper();
 const columns = [
   columnHelper.accessor("date", {
     header: "Date",
-    size: 40,
+    size: 35,
   }),
   columnHelper.accessor("bb", {
     header: "Bfr\nbreakfast",
-    size: 120,
+    size: 35,
   }),
   columnHelper.accessor("breakfast", {
     header: "Food",
-    size: 300,
+    size: 35,
   }),
   columnHelper.accessor("ab", {
     header: "Aft\nbreakfast",
-    size: 120,
+    size: 35,
   }),
   columnHelper.accessor("bl", {
     header: "Bfr\nlunch",
-    size: 120,
+    size: 35,
   }),
   columnHelper.accessor("lunch", {
     header: "Food",
-    size: 300,
+    size: 35,
   }),
   columnHelper.accessor("al", {
     header: "Aft\nlunch",
-    size: 120,
+    size: 35,
   }),
   columnHelper.accessor("bd", {
     header: "Bfr\ndinner",
-    size: 120,
+    size: 35,
   }),
   columnHelper.accessor("dinner", {
     header: "Food",
-    size: 300,
+    size: 35,
   }),
   columnHelper.accessor("ad", {
     header: "Aft\ndinner",
-    size: 120,
+    size: 35,
   }),
   columnHelper.accessor("morningInsulinUnits", {
     header: "Mrng\n(Fiasp)",
-    size: 300,
+    size: 35,
   }),
   columnHelper.accessor("afternoonInsulinUnits", {
     header: "Aft\n(Fiasp)",
-    size: 300,
+    size: 35,
   }),
   columnHelper.accessor("eveningInsulinUnits", {
     header: "Eve\n(Fiasp)",
-    size: 300,
+    size: 35,
   }),
   columnHelper.accessor("nightInsulinUnits", {
     header: "Night\n(HumInsulin N)",
-    size: 300,
+    size: 35,
   }),
 ];
 

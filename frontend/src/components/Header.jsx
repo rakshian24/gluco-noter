@@ -42,6 +42,11 @@ const Header = () => {
               Add Reading
             </Button>
           )}
+          {pathname !== ROUTES.REPORT && (
+            <Button variant="contained" onClick={() => navigate(ROUTES.REPORT)}>
+              Report
+            </Button>
+          )}
           <Button variant="outlined" onClick={onLogOut}>
             Logout
           </Button>
