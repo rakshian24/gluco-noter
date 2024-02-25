@@ -1,12 +1,15 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { RiAddCircleFill, RiDashboardFill } from "react-icons/ri";
-import { FaListAlt } from "react-icons/fa";
+import {
+  RiAddCircleFill,
+  RiDashboardFill,
+  RiDatabase2Fill,
+} from "react-icons/ri";
 import { ROUTES, colors } from "../../constants";
 import { Avatar, Stack } from "@mui/material";
 import { getInitials, isStandAloneAndRunningOnIos16 } from "../../utils";
 
-const { DASHBOARD, CREATE_READING, LIST_READINGS, PROFILE } = ROUTES;
+const { DASHBOARD, CREATE_READING, REPORT, PROFILE } = ROUTES;
 
 const Footer = ({ userInfo }) => {
   const { pathname } = useLocation();
@@ -35,10 +38,10 @@ const Footer = ({ userInfo }) => {
           color={pathname === CREATE_READING ? colors.primaryBlue : "#D7D8D9"}
         />
       </NavLink>
-      <NavLink to={LIST_READINGS}>
-        <FaListAlt
-          size={30}
-          color={pathname === LIST_READINGS ? colors.primaryBlue : "#D7D8D9"}
+      <NavLink to={REPORT}>
+        <RiDatabase2Fill
+          size={32}
+          color={pathname === REPORT ? colors.primaryBlue : "#D7D8D9"}
         />
       </NavLink>
       <NavLink to={PROFILE}>
