@@ -4,7 +4,7 @@ import getLoggedInUserId from "../../middleware/getLoggedInUserId.js";
 import GlucoseReading from "../../models/glucoseReadingModel.js";
 import Food from "../../models/Food.js";
 import moment from "moment";
-import { getFormattedTimeStamp, subtractTime } from "../../utils/index.js";
+import { subtractISOTime } from "../../utils/index.js";
 
 export default {
   Mutation: {
@@ -58,7 +58,6 @@ export default {
         ...{ user },
         ...{ consumedFoods: foods },
       };
-      console.log("RESPONSE = ", JSON.stringify(response, undefined, 2));
       return response;
     },
   },
@@ -247,44 +246,40 @@ export default {
 
           if (type === "bb") {
             readings["morningInsulinUnits"] = result.insulinUnits;
-            time["bb"] = getFormattedTimeStamp(result.createdAt);
-            time["morningInsulinUnits"] = getFormattedTimeStamp(
-              result.createdAt
-            );
+            time["bb"] = result.createdAt;
+            time["morningInsulinUnits"] = result.createdAt;
           } else if (type === "ab") {
-            const timeString = getFormattedTimeStamp(result.createdAt);
+            const timeString = result.createdAt;
             readings["breakfast"] = result.consumedFoods
               .map((food) => food.label)
               .join(", ");
             time["ab"] = timeString;
-            time["breakfast"] = subtractTime(timeString, timeFormat, 1);
+            time["breakfast"] = subtractISOTime(timeString, 1);
           } else if (type === "bl") {
             readings["afternoonInsulinUnits"] = result.insulinUnits;
-            time["bl"] = getFormattedTimeStamp(result.createdAt);
-            time["afternoonInsulinUnits"] = getFormattedTimeStamp(
-              result.createdAt
-            );
+            time["bl"] = result.createdAt;
+            time["afternoonInsulinUnits"] = result.createdAt;
           } else if (type === "al") {
-            const timeString = getFormattedTimeStamp(result.createdAt);
+            const timeString = result.createdAt;
             readings["lunch"] = result.consumedFoods
               .map((food) => food.label)
               .join(", ");
             time["al"] = timeString;
-            time["lunch"] = subtractTime(timeString, timeFormat, 1);
+            time["lunch"] = subtractISOTime(timeString, 1);
           } else if (type === "bd") {
-            const timeString = getFormattedTimeStamp(result.createdAt);
+            const timeString = result.createdAt;
             readings["eveningInsulinUnits"] = result.insulinUnits;
             time["bd"] = timeString;
             time["eveningInsulinUnits"] = timeString;
           } else if (type === "ad") {
-            const timeString = getFormattedTimeStamp(result.createdAt);
+            const timeString = result.createdAt;
             readings["dinner"] = result.consumedFoods
               .map((food) => food.label)
               .join(", ");
             readings["nightInsulinUnits"] = result.insulinUnits;
             time["ad"] = timeString;
             time["nightInsulinUnits"] = timeString;
-            time["dinner"] = subtractTime(timeString, timeFormat, 1);
+            time["dinner"] = subtractISOTime(timeString, 1);
           }
         });
 

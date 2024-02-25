@@ -95,17 +95,6 @@ const ReportTable = ({ data }) => {
         valign: "middle",
         halign: "center",
       },
-      //   columnStyles: {
-      //     0: { cellWidth: "auto", minCellHeight: 20 },
-      //     1: { cellWidth: "auto", minCellHeight: 20 },
-      //     2: { cellWidth: "auto", minCellHeight: 20 },
-      //     3: { cellWidth: "auto", minCellHeight: 20 },
-      //     4: { cellWidth: "auto", minCellHeight: 20 },
-      //     5: { cellWidth: "auto", minCellHeight: 20 },
-      //     6: { cellWidth: "auto", minCellHeight: 20 },
-      //     7: { cellWidth: "auto", minCellHeight: 20 },
-      //     8: { cellWidth: "auto", minCellHeight: 20 },
-      //   },
     });
 
     doc.save("gluco-noter-report.pdf");

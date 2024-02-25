@@ -22,8 +22,8 @@ export const getFormattedTimeStamp = (value) => {
   return moment(value).format("hh:mm A");
 };
 
-export const subtractTime = (inputTimeString, timeFormat, hoursToSubtract) => {
-  const inputMoment = moment(inputTimeString, timeFormat);
-  const outputMoment = inputMoment.subtract(hoursToSubtract, "hours");
-  return outputMoment.format(timeFormat);
+export const subtractISOTime = (inputTimeString, hoursToSubtract) => {
+  return moment(inputTimeString)
+    .subtract(hoursToSubtract, "hours")
+    .toISOString();
 };
