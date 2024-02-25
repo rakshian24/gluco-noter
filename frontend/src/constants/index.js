@@ -13,7 +13,7 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   PROFILE: "/profile",
   CREATE_READING: "/create-reading",
-  LIST_READINGS: "/readings",
+  REPORT: "/report",
   READING_DETAILS: "/reading/:date",
 };
 

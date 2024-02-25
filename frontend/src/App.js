@@ -16,6 +16,7 @@ import Footer from "./components/Footer/Footer";
 import { useAuth } from "./context/authContext";
 import ReadingDetails from "./pages/readings/details/ReadingDetails";
 import Profile from "./pages/profile";
+import Report from "./pages/report/Report";
 
 const App = () => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ const App = () => {
     CREATE_READING,
     READING_DETAILS,
     PROFILE,
+    REPORT,
   } = ROUTES;
 
   return (
@@ -63,6 +65,7 @@ const App = () => {
                 path={CREATE_READING}
               />
               <Route element={<ReadingDetails />} path={READING_DETAILS} />
+              <Route element={<Report />} path={REPORT} />
               {isTablet && <Route element={<Profile />} path={PROFILE} />}
             </Route>
 
