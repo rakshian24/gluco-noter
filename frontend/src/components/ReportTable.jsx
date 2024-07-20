@@ -95,6 +95,16 @@ const ReportTable = ({ data }) => {
         valign: "middle",
         halign: "center",
       },
+      //To change the table row bgColor for the alternate rows in the group of two.
+      didParseCell: (data) => {
+        const rowIndex = data.row.index;
+        const groupIndex = Math.floor(rowIndex / 2);
+        if (groupIndex % 2 === 0) {
+          data.cell.styles.fillColor = colors.lightGrey;
+        } else {
+          data.cell.styles.fillColor = colors.white;
+        }
+      },
     });
 
     doc.save("gluco-noter-report.pdf");
@@ -126,6 +136,12 @@ const ReportTable = ({ data }) => {
         </Button>
       </Box>
     ),
+    muiTableBodyRowProps: ({ row }) => ({
+      sx: {
+        backgroundColor:
+          Math.floor(row.index / 2) % 2 === 0 ? colors.lightGrey : colors.white,
+      },
+    }),
   });
 
   return <MaterialReactTable table={table} />;
