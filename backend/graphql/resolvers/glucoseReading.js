@@ -113,7 +113,32 @@ export default {
           },
         },
         {
-          $sort: { createdAt: -1 },
+          $addFields: {
+            date: {
+              $dateFromString: {
+                dateString: {
+                  $concat: [
+                    { $substr: ["$_id", 6, 4] },
+                    "-",
+                    { $substr: ["$_id", 3, 2] },
+                    "-",
+                    { $substr: ["$_id", 0, 2] },
+                  ],
+                },
+                format: "%Y-%m-%d",
+              },
+            },
+          },
+        },
+        {
+          $sort: {
+            date: -1,
+          },
+        },
+        {
+          $project: {
+            date: 0,
+          },
         },
       ]);
 
@@ -199,7 +224,32 @@ export default {
           },
         },
         {
-          $sort: { createdAt: -1 },
+          $addFields: {
+            date: {
+              $dateFromString: {
+                dateString: {
+                  $concat: [
+                    { $substr: ["$_id", 6, 4] },
+                    "-",
+                    { $substr: ["$_id", 3, 2] },
+                    "-",
+                    { $substr: ["$_id", 0, 2] },
+                  ],
+                },
+                format: "%Y-%m-%d",
+              },
+            },
+          },
+        },
+        {
+          $sort: {
+            date: -1,
+          },
+        },
+        {
+          $project: {
+            date: 0,
+          },
         },
       ]);
 
