@@ -11,7 +11,7 @@ export const generateToken = async (user) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1d",
+        expiresIn: "365d",
       }
     );
     res(token);
