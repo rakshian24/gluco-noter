@@ -113,7 +113,7 @@ export default {
           },
         },
         {
-          $sort: { _id: -1 },
+          $sort: { createdAt: -1 },
         },
       ]);
 
@@ -199,12 +199,11 @@ export default {
           },
         },
         {
-          $sort: { _id: -1 },
+          $sort: { createdAt: -1 },
         },
       ]);
 
       const transformedData = readings.map((group) => {
-        const timeFormat = "h:mm A";
         const date = group._id.split("-").reverse().join("-");
         const readings = {
           date: date,
